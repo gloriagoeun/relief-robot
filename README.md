@@ -1,2 +1,3 @@
 # relief-robot
-ethics assignment
+Ethics Assignment for CS062
+Created by Evelyn & Gloria 
