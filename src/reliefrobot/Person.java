@@ -9,81 +9,71 @@ public class Person {
 
     // we can change these attributes to fit our scenario
 
-    String charType; // options: 'human', 'you', 'cat', 'dog'
     String age; // humans can be a 'baby', 'child', or 'adult'
     String gender; //'male', 'female', 'non-binary'
+    String diseaseSeverity; // can have a disease severity: 'mild', 'moderate', 'severe'
     
-    // Adult attributes --> if not adult, resort to "" (?)
+    // Adult attributes --> if not adult, resort to "" or false
     String profession; // adults are assigned a profession: 'doctor', 'CEO', 'criminal', 'homeless', 'unemployed', 'unknown'
-    String bodyType; // adults are classified as 'average', 'athletic', or 'overweight'
-    Boolean pregnant; // adult women may also be pregnant. True if pregant
+    String fitnessLevel; // adults are classified as 'average', 'athletic', or 'overweight'
+    Boolean substanceUse; // can have alcohol or drug use. True if using
+    String familyStatus; // can have a family status: 'single', 'married', 'has children'
 
-
-    public Person(String charType, String age, String profession, 
-    String gender, String bodyType, Boolean pregnant) {
-        this.charType = charType; 
+    public Person(String age, String profession, 
+    String gender, String fitnessLevel, String diseaseSeverity, Boolean substanceUse, String familyStatus) {
         this.age = age;
         this.profession = profession;
         this.gender = gender;
-        this.bodyType = bodyType;
-        this.pregnant = pregnant;
+        this.fitnessLevel = fitnessLevel;
+        this.diseaseSeverity = diseaseSeverity;
+        this.substanceUse = substanceUse;
+        this.familyStatus = familyStatus;
     }
 
     public String toString() {
         String output = "";
 
-        if (charType.equals("human")){
-            output += "[" + bodyType + " " + age + " " + gender + "]";
-            output += " job: " + profession; 
-
-            if (pregnant) {
-                output += ", pregnant";
-            }
-
-        } else {
-            output += charType;
-        }
+        output += "[" + diseaseSeverity + " disease " + age + " " + gender + "]";
+        output += " job: " + profession; 
+        output += " fitness level: " + fitnessLevel;
+        output += " substance use: " + substanceUse;
+        output += " family status: " + familyStatus; 
 
         return output;
     }
 
-    // FOR RANDOM GENERATION 
-    String[] CHARTYPES = {"human", "human", "human", "animal", "human"};
-    String[] ANIMAL_TYPES = {"cat", "dog"};
+    // FOR RANDOM GENERATION OF PERSON
     String[] AGE_TYPES = {"baby", "child", "adult", "adult", "adult", "elderly"};
     String[] PROF_TYPES = {"doctor", "CEO", "criminal", "homeless", "unemployed", "unknown", "unknown", "unknown"};
-    String[] GENDER_TYPES = {"male", "female"};
-    Boolean[] PREGNANT_CHANCE = {true, false, false, false};
-    String[] BODYWEIGHT_CHANCE = {"overweight", "athletic", "average", "average"};
+    String[] GENDER_TYPES = {"male", "female", "non-binary"};
+    String[] FITNESS_LEVELS = {"overweight", "athletic", "average", "average"};
+    String[] DISEASE_SEVERITY = {"mild", "moderate", "severe"};
+    Boolean[] SUBSTANCE_USE = {true, false, false, false};
+    String[] FAMILY_STATUS = {"single", "married", "has children"};
 
     /*
      * function to create a totally random person
      */
-    public Person create_random_person() {
+    public Person createRandomPerson() {
         Random rand = new Random();
-        String charType_rand = CHARTYPES[rand.nextInt(CHARTYPES.length)];
-        String age_rand = ""; String profession_rand = ""; String gender_rand = ""; 
-        String bodyType_rand = ""; Boolean pregnant_rand = false; 
+
+        String ageRand = AGE_TYPES[rand.nextInt(AGE_TYPES.length)];; 
+        String genderRand = GENDER_TYPES[rand.nextInt(GENDER_TYPES.length)];; 
+        String severityRand = DISEASE_SEVERITY[rand.nextInt(DISEASE_SEVERITY.length)]; 
         
-        if (charType_rand.equals("animal")) {
-            charType_rand = ANIMAL_TYPES[rand.nextInt(ANIMAL_TYPES.length)];
-        } 
-        // if "human"
-        else {
-            age_rand = AGE_TYPES[rand.nextInt(AGE_TYPES.length)];
-            gender_rand = GENDER_TYPES[rand.nextInt(GENDER_TYPES.length)];
+        String professionRand = ""; 
+        String fitnessRand = ""; 
+        Boolean substanceRand = false; 
+        String familyRand = "";
 
-            if (age_rand.equals("adult")) {
-                bodyType_rand = BODYWEIGHT_CHANCE[rand.nextInt(BODYWEIGHT_CHANCE.length)];
-                profession_rand = PROF_TYPES[rand.nextInt(PROF_TYPES.length)];
-
-                if (gender_rand.equals("female")) {
-                    pregnant_rand = PREGNANT_CHANCE[rand.nextInt(PREGNANT_CHANCE.length)];
-                }
-            }
+        if (ageRand.equals("adult")) {
+            fitnessRand = FITNESS_LEVELS[rand.nextInt(FITNESS_LEVELS.length)];
+            professionRand = PROF_TYPES[rand.nextInt(PROF_TYPES.length)];
+            substanceRand = SUBSTANCE_USE[rand.nextInt(SUBSTANCE_USE.length)];
+            familyRand = FAMILY_STATUS[rand.nextInt(FAMILY_STATUS.length)];
         }
 
-        return new Person(charType_rand, age_rand, profession_rand, gender_rand, bodyType_rand, pregnant_rand); 
+        return new Person(ageRand, professionRand, genderRand, fitnessRand, severityRand, substanceRand, familyRand); 
     }
 }
 
