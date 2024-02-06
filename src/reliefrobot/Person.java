@@ -34,27 +34,29 @@ public class Person {
         String output = "";
 
         output += "[" + diseaseSeverity + " disease " + age + " " + gender + "]";
-        output += " job: " + profession; 
-        output += " fitness level: " + fitnessLevel;
-        output += " substance use: " + substanceUse;
-        output += " family status: " + familyStatus; 
+        if (age.equals("adult")) {
+            output += "; job: " + profession; 
+            output += "; fitness level: " + fitnessLevel;
+            output += "; substance use: " + substanceUse;
+            output += "; family status: " + familyStatus; 
+        }
 
         return output;
     }
 
     // FOR RANDOM GENERATION OF PERSON
-    String[] AGE_TYPES = {"baby", "child", "adult", "adult", "adult", "elderly"};
-    String[] PROF_TYPES = {"doctor", "CEO", "criminal", "homeless", "unemployed", "unknown", "unknown", "unknown"};
-    String[] GENDER_TYPES = {"male", "female", "non-binary"};
-    String[] FITNESS_LEVELS = {"overweight", "athletic", "average", "average"};
-    String[] DISEASE_SEVERITY = {"mild", "moderate", "severe"};
-    Boolean[] SUBSTANCE_USE = {true, false, false, false};
-    String[] FAMILY_STATUS = {"single", "married", "has children"};
+    static String[] AGE_TYPES = {"baby", "child", "adult", "adult", "adult", "elderly"};
+    static String[] PROF_TYPES = {"doctor", "CEO", "criminal", "homeless", "unemployed", "unknown", "unknown", "unknown"};
+    static String[] GENDER_TYPES = {"male", "female", "non-binary"};
+    static String[] FITNESS_LEVELS = {"overweight", "athletic", "average", "average"};
+    static String[] DISEASE_SEVERITY = {"mild", "moderate", "severe"};
+    static Boolean[] SUBSTANCE_USE = {true, false, false, false};
+    static String[] FAMILY_STATUS = {"single", "married", "has children"};
 
     /*
      * function to create a totally random person
      */
-    public Person createRandomPerson() {
+    public static Person createRandomPerson() {
         Random rand = new Random();
 
         String ageRand = AGE_TYPES[rand.nextInt(AGE_TYPES.length)];; 

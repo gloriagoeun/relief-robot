@@ -1,6 +1,16 @@
 package reliefrobot; 
+import java.util.*;
 
 public class Engine {
+
+  // uses heap to prioritize people based on severity of disease
+  PriorityQueue<Integer> pQueue = new PriorityQueue<>();
+  public static Person[] ruleset1(Scenario scenario) {
+    // for (Person person : scenario.people) {
+    //   pQueue.add(person);
+    // }
+    return scenario.people; 
+  }
     
 }
 

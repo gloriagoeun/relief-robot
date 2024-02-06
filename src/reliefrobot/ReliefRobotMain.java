@@ -1,6 +1,45 @@
-package reliefrobot; 
+package reliefrobot;
+
+import java.util.Scanner;
 
 public class ReliefRobotMain {
+
+    public static void main(String[] args) {
+        System.out.println("===========================================");
+        System.out.println("THE RELIEF ROBOT");
+        System.out.println("===========================================");
+        System.out.println();
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            Scenario scene = Scenario.createRandomScenario(5);
+            System.out.println(scene);
+            System.out.println();
+            Person[] result = Engine.ruleset1(scene);
+            // result = ruleset2(scene);
+            // result = ruleset3(scene);
+            // result = my_decision(scene);
+            // result = group_decision(scene);
+            System.out.println("Hit any key to continue: ");
+            scanner.nextLine();
+            System.out.println();
+            System.out.println("The people will recieve implants in this order: ");
+            // print the people in the order they will recieve implants with numbers
+            for (int i = 0; i < result.length; i++) {
+                System.out.println((i + 1) + ". " + result[i]);
+            }
+            System.out.println("Hit 'q' to quit or any key to continue: ");
+
+            // For breaking the loop ask for user input
+            String response = scanner.nextLine();
+            if (response.equals("q")) {
+                break;
+            }
+        }
+
+        System.out.println("Done");
+    }
     
 }
 

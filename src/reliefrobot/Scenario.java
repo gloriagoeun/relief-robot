@@ -1,8 +1,35 @@
 package reliefrobot; 
 
 public class Scenario {
+
+    // Attributes
+    Person[] people;
+
+    // Constructor
+    public Scenario(Person[] people) {
+        this.people = people;
+    }
+
+    // Method
+    public String toString() {
+        String printOut = "People waiting to receive liver transplant: \n";
+        for (Person person : people) {
+          printOut += "-" + person.toString() + "\n";
+        }
+        return printOut;
+    }
+
+    public static Scenario createRandomScenario(int numPeople) {
+        Person[] randomPeople = new Person[numPeople];
+        for (int i = 0; i < numPeople; i++) {
+            Person person = Person.createRandomPerson();
+            randomPeople[i] = person;
+        }
+        return new Scenario(randomPeople);
+      }
     
 }
+
 
 /*
  * Original Code by Evan Peck
