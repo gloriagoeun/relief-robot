@@ -4,13 +4,38 @@ import java.util.*;
 public class Engine {
 
   // uses heap to prioritize people based on severity of disease
-  PriorityQueue<Integer> pQueue = new PriorityQueue<>();
   public static Person[] ruleset1(Scenario scenario) {
-    // for (Person person : scenario.people) {
-    //   pQueue.add(person);
-    // }
-    return scenario.people; 
+    PriorityQueue<Person> pQueue = new PriorityQueue<Person>(comparator1);
+    for (Person person : scenario.people) {
+      pQueue.add(person);
+    }
+
+    // convert pqueue to array
+    Person[] result = new Person[scenario.people.length];
+    for (int i = 0; i < scenario.people.length; i++) {
+      result[i] = pQueue.poll();
+    }
+    return result; 
   }
+
+  // prioritize people based on severity of disease, must do reverse order to get the correct order
+  static Comparator<Person> comparator1 = new Comparator<Person>() {
+    @Override
+    public int compare(Person p1, Person p2) {
+      if (p1.diseaseSeverity.equals("mild")) {
+        return 1;
+      } else if (p2.diseaseSeverity.equals("mild")) {
+        return -1;
+      } else if (p1.diseaseSeverity.equals("moderate")) {
+        return 1;
+      } else if (p2.diseaseSeverity.equals("moderate")) {
+        return -1;
+      }
+      else {
+        return 1;
+      }
+    }
+  };
     
 }
 
