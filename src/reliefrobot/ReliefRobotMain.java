@@ -39,8 +39,8 @@ public class ReliefRobotMain {
         }
 
         System.out.println("Done");
+        scanner.close();
     }
-    
 }
 
 /*
