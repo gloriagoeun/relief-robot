@@ -16,7 +16,7 @@ public class ReliefRobotMain {
             Scenario scene = Scenario.createRandomScenario(5);
             System.out.println(scene);
             System.out.println();
-            Person[] result = Engine.ruleset1(scene);
+            Person[] result = Engine.ruleset1(scene, Engine.diseaseSevComp);
             // result = ruleset2(scene);
             // result = ruleset3(scene);
             // result = my_decision(scene);

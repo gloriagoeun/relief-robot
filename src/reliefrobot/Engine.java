@@ -4,8 +4,8 @@ import java.util.*;
 public class Engine {
 
   // uses heap to prioritize people based on severity of disease
-  public static Person[] ruleset1(Scenario scenario) {
-    PriorityQueue<Person> pQueue = new PriorityQueue<Person>(comparator1);
+  public static Person[] ruleset1(Scenario scenario, Comparator<Person> comp) {
+    PriorityQueue<Person> pQueue = new PriorityQueue<Person>(comp);
     for (Person person : scenario.people) {
       pQueue.add(person);
     }
@@ -19,25 +19,38 @@ public class Engine {
   }
 
   // prioritize people based on severity of disease, must do reverse order to get the correct order
-  static Comparator<Person> comparator1 = new Comparator<Person>() {
+  public static Comparator<Person> diseaseSevComp = new Comparator<Person>() {
     @Override
     public int compare(Person p1, Person p2) {
-      if (p1.diseaseSeverity.equals("mild")) {
-        return 1;
-      } else if (p2.diseaseSeverity.equals("mild")) {
-        return -1;
-      } else if (p1.diseaseSeverity.equals("moderate")) {
-        return 1;
-      } else if (p2.diseaseSeverity.equals("moderate")) {
-        return -1;
-      }
-      else {
-        return 1;
-      }
+      // TO UPDATE AFTER MAKE ALL PROPERTIES TO INTs
+
+      if (p1.diseaseSeverity.equals(p2.diseaseSeverity)) {
+        return 0;
+      } 
+      
+      return -1;
     }
   };
-    
+
+  public static Comparator<Person> exampleWeightedComp = new Comparator<Person>() {
+    @Override
+    public int compare(Person p1, Person p2) {
+      //TO BE UPDATED AFTER MAKE ALL PROPERTIES INTO INTs
+
+      return 0; 
+    }
+  };
+
+  public static Comparator<Person> newComparator = new Comparator<Person>() {
+    @Override
+    public int compare(Person p1, Person p2) {
+      //TO BE UPDATED AFTER MAKE ALL PROPERTIES INTO INTs
+
+      return 0; 
+    }
+  };
 }
+
 
 /*
  * Original Code by Evan Peck
