@@ -19,6 +19,8 @@ public class Person {
     Boolean substanceUse; // can have alcohol or drug use. True if using
     String familyStatus; // can have a family status: 'single', 'married', 'has children'
 
+    Random rand;
+
     public Person(String age, String profession, 
     String gender, String fitnessLevel, String diseaseSeverity, Boolean substanceUse, String familyStatus) {
         this.age = age;
@@ -56,8 +58,8 @@ public class Person {
     /*
      * function to create a totally random person
      */
-    public static Person createRandomPerson() {
-        Random rand = new Random();
+    public static Person createRandomPerson(int withSeed) {
+        Random rand = new Random(withSeed);
 
         String ageRand = AGE_TYPES[rand.nextInt(AGE_TYPES.length)];; 
         String genderRand = GENDER_TYPES[rand.nextInt(GENDER_TYPES.length)];; 

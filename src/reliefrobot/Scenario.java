@@ -1,4 +1,6 @@
-package reliefrobot; 
+package reliefrobot;
+
+import java.util.Random;
 
 public class Scenario {
 
@@ -19,15 +21,14 @@ public class Scenario {
         return printOut;
     }
 
-    public static Scenario createRandomScenario(int numPeople) {
+    public static Scenario createRandomScenario(int numPeople, Random rand) {
         Person[] randomPeople = new Person[numPeople];
         for (int i = 0; i < numPeople; i++) {
-            Person person = Person.createRandomPerson();
+            Person person = Person.createRandomPerson(rand.nextInt());
             randomPeople[i] = person;
         }
         return new Scenario(randomPeople);
       }
-    
 }
 
 

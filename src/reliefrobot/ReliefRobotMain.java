@@ -1,6 +1,7 @@
 package reliefrobot;
 
 import java.util.Scanner;
+import java.util.Random;
 
 public class ReliefRobotMain {
 
@@ -12,8 +13,10 @@ public class ReliefRobotMain {
 
         Scanner scanner = new Scanner(System.in);
 
+        Random rand = new Random(47);
+
         while (true) {
-            Scenario scene = Scenario.createRandomScenario(5);
+            Scenario scene = Scenario.createRandomScenario(5, rand);
             System.out.println(scene);
             System.out.println();
             Person[] result = Engine.ruleset1(scene, Engine.diseaseSevComp);
