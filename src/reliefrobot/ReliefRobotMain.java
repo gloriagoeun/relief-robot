@@ -1,6 +1,7 @@
 package reliefrobot;
 
 import java.util.Scanner;
+import java.util.Comparator;
 import java.util.Random;
 
 public class ReliefRobotMain {
@@ -14,25 +15,41 @@ public class ReliefRobotMain {
         Scanner scanner = new Scanner(System.in);
 
         Random rand = new Random(47);
+        int peopleCanSave = 3;
 
         while (true) {
             Scenario scene = Scenario.createRandomScenario(5, rand);
             System.out.println(scene);
+            System.out.println("Select how you want to prioritize the people: ");
+            System.out.println("1. Disease Severity");
+            System.out.println("2. Example Weighted");
+            System.out.println("3. My own Comparator");
+            String input = scanner.nextLine();
+
+            // validate input
+            while (!input.equals("1") && !input.equals("2") && !input.equals("3")) {
+                System.out.println("Invalid input. Please enter 1, 2, or 3: ");
+                input = scanner.nextLine();
+            }
+
+            // use comparator based on user input
+            Comparator<Person> comp = null;
+            if (input.equals("1")) {
+              comp = Engine.diseaseSevComp;
+            } else if (input.equals("2")) {
+              comp = Engine.exampleWeightedComp;
+            } else {
+              comp = Engine.newComparator;
+            }
+            Person[] result = Engine.ruleset1(scene, comp);
             System.out.println();
-            Person[] result = Engine.ruleset1(scene, Engine.diseaseSevComp);
-            // result = ruleset2(scene);
-            // result = ruleset3(scene);
-            // result = my_decision(scene);
-            // result = group_decision(scene);
-            System.out.println("Hit any key to continue: ");
-            scanner.nextLine();
-            System.out.println();
-            System.out.println("The people will recieve implants in this order: ");
-            // print the people in the order they will recieve implants with numbers
-            for (int i = 0; i < result.length; i++) {
+            System.out.println("The " + peopleCanSave +  " people who will recieve implants in this order: ");
+            
+            // print the top x people in the order they will recieve implants with numbers
+            for (int i = 0; i < peopleCanSave; i++) {
                 System.out.println((i + 1) + ". " + result[i]);
             }
-            System.out.println("Hit 'q' to quit or any key to continue: ");
+            System.out.println("\nHit 'q' to quit or any key to continue to new scenario: ");
 
             // For breaking the loop ask for user input
             String response = scanner.nextLine();

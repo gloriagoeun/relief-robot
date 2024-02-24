@@ -22,22 +22,21 @@ public class Engine {
   public static Comparator<Person> diseaseSevComp = new Comparator<Person>() {
     @Override
     public int compare(Person p1, Person p2) {
-      // TO UPDATE AFTER MAKE ALL PROPERTIES TO INTs
-
-      if (p1.diseaseSeverity.equals(p2.diseaseSeverity)) {
-        return 0;
-      } 
-      
-      return -1;
+      int p1Disease = Person.getIntFromDiseaseSeverity(p1.diseaseSeverity);
+      int p2Disease = Person.getIntFromDiseaseSeverity(p2.diseaseSeverity);
+      return p2Disease - p1Disease;
     }
   };
 
   public static Comparator<Person> exampleWeightedComp = new Comparator<Person>() {
     @Override
     public int compare(Person p1, Person p2) {
-      //TO BE UPDATED AFTER MAKE ALL PROPERTIES INTO INTs
+      int p1Disease = Person.getIntFromDiseaseSeverity(p1.diseaseSeverity);
+      int p2Disease = Person.getIntFromDiseaseSeverity(p2.diseaseSeverity);
+      int p1age = Person.getIntFromAge(p1.age);
+      int p2age = Person.getIntFromAge(p2.age);
 
-      return 0; 
+      return (p2Disease * 2 + p2age) - (p1Disease * 2 + p1age);
     }
   };
 

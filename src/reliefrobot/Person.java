@@ -1,4 +1,5 @@
-package reliefrobot; 
+package reliefrobot;
+import java.util.List;
 import java.util.Random;
 
 public class Person {
@@ -16,13 +17,22 @@ public class Person {
     // Adult attributes --> if not adult, resort to "" or false
     String profession; // adults are assigned a profession: 'doctor', 'CEO', 'criminal', 'homeless', 'unemployed', 'unknown'
     String fitnessLevel; // adults are classified as 'average', 'athletic', or 'overweight'
-    Boolean substanceUse; // can have alcohol or drug use. True if using
+    boolean substanceUse; // can have alcohol or drug use. True if using
     String familyStatus; // can have a family status: 'single', 'married', 'has children'
 
     Random rand;
 
+    // FOR ORDERING OF PERSON
+    static List<String> AGE_ORDER = List.of("elderly", "baby", "child", "adult");
+    static List<String> PROF_ORDER = List.of("criminal","homeless", "unemployed", "unknown", "CEO", "doctor");
+    static List<String> GENDER_ORDER = List.of("non-binary", "male", "female");
+    static List<String> FITNESS_LEVELS_ORDER = List.of("overweight",  "average", "athletic");
+    static List<String> DISEASE_SEVERITY_ORDER = List.of("mild", "moderate", "severe");
+    static List<Boolean> SUBSTANCE_USE_ORDER = List.of(true, false);
+    static List<String> FAMILY_STATUS_ORDER = List.of("single", "married", "has children");
+
     public Person(String age, String profession, 
-    String gender, String fitnessLevel, String diseaseSeverity, Boolean substanceUse, String familyStatus) {
+    String gender, String fitnessLevel, String diseaseSeverity, boolean substanceUse, String familyStatus) {
         this.age = age;
         this.profession = profession;
         this.gender = gender;
@@ -35,7 +45,7 @@ public class Person {
     public String toString() {
         String output = "";
 
-        output += "[" + diseaseSeverity + " disease " + age + " " + gender + "]";
+        output += "[" + diseaseSeverity + " disease; " + gender + "; " + age + "]";
         if (age.equals("adult")) {
             output += "; job: " + profession; 
             output += "; fitness level: " + fitnessLevel;
@@ -52,7 +62,7 @@ public class Person {
     static String[] GENDER_TYPES = {"male", "female", "non-binary"};
     static String[] FITNESS_LEVELS = {"overweight", "athletic", "average", "average"};
     static String[] DISEASE_SEVERITY = {"mild", "moderate", "severe"};
-    static Boolean[] SUBSTANCE_USE = {true, false, false, false};
+    static boolean[] SUBSTANCE_USE = {true, false, false, false};
     static String[] FAMILY_STATUS = {"single", "married", "has children"};
 
     /*
@@ -79,6 +89,37 @@ public class Person {
 
         return new Person(ageRand, professionRand, genderRand, fitnessRand, severityRand, substanceRand, familyRand); 
     }
+
+    // getters to convert string to order of string in ordered list above
+
+    public static int getIntFromAge(String age) {
+        return AGE_ORDER.indexOf(age) + 1;
+    }
+
+    public static int getIntFromProfession(String profession) {
+        return PROF_ORDER.indexOf(profession) + 1;
+    }
+
+    public static int getIntFromGender(String gender) {
+        return GENDER_ORDER.indexOf(gender) + 1;
+    }
+
+    public static int getIntFromFitnessLevel(String fitnessLevel) {
+        return FITNESS_LEVELS_ORDER.indexOf(fitnessLevel) + 1;
+    }
+
+    public static int getIntFromDiseaseSeverity(String diseaseSeverity) {
+        return DISEASE_SEVERITY_ORDER.indexOf(diseaseSeverity) + 1;
+    }
+
+    public static int getIntFromSubstanceUse(boolean substanceUse) {
+        return SUBSTANCE_USE_ORDER.indexOf(substanceUse) + 1;
+    }
+
+    public static int getIntFromFamilyStatus(String familyStatus) {
+        return FAMILY_STATUS_ORDER.indexOf(familyStatus) + 1;
+    }
+
 }
 
 
