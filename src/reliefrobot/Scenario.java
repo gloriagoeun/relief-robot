@@ -4,33 +4,41 @@ import java.util.Random;
 
 public class Scenario {
 
-    // Attributes
-    Person[] people;
+  Person[] people;
 
-    // Constructor
-    public Scenario(Person[] people) {
-        this.people = people;
+  public Scenario(Person[] people) {
+    this.people = people;
+  }
+
+  /*
+   * Method to print a Scenario
+   */
+  public String toString() {
+    String output = "People waiting to receive liver transplant: \n";
+    for (Person person : people) {
+      output += "-" + person.toString() + "\n";
     }
+    return output;
+  }
 
-    // Method
-    public String toString() {
-        String printOut = "People waiting to receive liver transplant: \n";
-        for (Person person : people) {
-          printOut += "-" + person.toString() + "\n";
-        }
-        return printOut;
+  /*
+   * Method to create a random scenario by generating random people
+   * 
+   * @param numPeople: number of people in the scenario
+   * 
+   * @param rand: random number generator
+   * 
+   * @return a random scenario
+   */
+  public static Scenario createRandomScenario(int numPeople, Random rand) {
+    Person[] randomPeople = new Person[numPeople];
+    for (int i = 0; i < numPeople; i++) {
+      Person person = Person.createRandomPerson(rand.nextInt());
+      randomPeople[i] = person;
     }
-
-    public static Scenario createRandomScenario(int numPeople, Random rand) {
-        Person[] randomPeople = new Person[numPeople];
-        for (int i = 0; i < numPeople; i++) {
-            Person person = Person.createRandomPerson(rand.nextInt());
-            randomPeople[i] = person;
-        }
-        return new Scenario(randomPeople);
-      }
+    return new Scenario(randomPeople);
+  }
 }
-
 
 /*
  * Original Code by Evan Peck

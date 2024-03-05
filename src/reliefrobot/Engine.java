@@ -1,13 +1,17 @@
-package reliefrobot; 
+package reliefrobot;
+
 import java.util.*;
 
 public class Engine {
 
-  // uses heap to prioritize people based on severity of disease
-  public static Person[] ruleset1(Scenario scenario, Comparator<Person> comp) {
-    PriorityQueue<Person> pQueue = new PriorityQueue<Person>(comp);
-    for (Person person : scenario.people) {
-      pQueue.add(person);
+  /*
+   * uses heap to prioritize people based on scenario and comparator
+   */
+  public static Person[] prioritizePeople(Scenario scenario, Comparator<Person> comp) {
+    PriorityQueue<Person> pQueue = new PriorityQueue<>(comp);
+    // add all people to the priority queue
+    for (Person p : scenario.people) {
+      pQueue.add(p);
     }
 
     // convert pqueue to array
@@ -15,51 +19,52 @@ public class Engine {
     for (int i = 0; i < scenario.people.length; i++) {
       result[i] = pQueue.poll();
     }
-    return result; 
+    return result;
   }
 
-  // prioritize people based on severity of disease, must do reverse order to get the correct order
-  public static Comparator<Person> diseaseSevComp = new Comparator<Person>() {
+  /*
+   * prioritize people based on severity of disease
+   */
+  public static final Comparator<Person> diseaseSeverityComp = new Comparator<Person>() {
     @Override
     public int compare(Person p1, Person p2) {
       int p1Disease = Person.getIntfromAttributes(Person.DISEASE_SEVERITY_ORDER, p1.diseaseSeverity);
       int p2Disease = Person.getIntfromAttributes(Person.DISEASE_SEVERITY_ORDER, p2.diseaseSeverity);
 
-      if (p1Disease < p2Disease) {
-        return -1;
-      } else if (p1Disease > p2Disease) {
-        return 1;
-      } else {
-        return 0;
-      }
+      // must do reverse order for a max heap
+      return Integer.compare(p2Disease, p1Disease);
     }
   };
 
-  public static Comparator<Person> exampleWeightedComp = new Comparator<Person>() {
+  /*
+   * prioritize people based on severity of disease and age but weights severity 2
+   * times more than age
+   */
+  public static final Comparator<Person> weightedSeverityAgeComp = new Comparator<Person>() {
     @Override
     public int compare(Person p1, Person p2) {
-      int p1Score = Person.getIntfromAttributes(Person.DISEASE_SEVERITY_ORDER, p1.diseaseSeverity) * 2 + Person.getIntfromAttributes(Person.AGE_ORDER, p1.age); 
-      int p2Score = Person.getIntfromAttributes(Person.DISEASE_SEVERITY_ORDER, p1.diseaseSeverity) * 2 + Person.getIntfromAttributes(Person.AGE_ORDER, p1.age); 
+      int p1Score = Person.getIntfromAttributes(Person.DISEASE_SEVERITY_ORDER, p1.diseaseSeverity) * 2
+          + Person.getIntfromAttributes(Person.AGE_ORDER, p1.age);
+      int p2Score = Person.getIntfromAttributes(Person.DISEASE_SEVERITY_ORDER, p2.diseaseSeverity) * 2
+          + Person.getIntfromAttributes(Person.AGE_ORDER, p2.age);
 
-      if (p1Score < p2Score) {
-        return -1;
-      } else if (p1Score > p2Score) {
-        return 1;
-      } else {
-        return 0;
-      }
+      return Integer.compare(p2Score, p1Score);
     }
   };
 
-  public static Comparator<Person> newComparator = new Comparator<Person>() {
+  /*
+   * Students create their own "rule"" using multiple attributes
+   */
+  public static final Comparator<Person> newComparator = new Comparator<Person>() {
     @Override
     public int compare(Person p1, Person p2) {
-      // Students create their own "rule"" using multiple attributes
-      return 0; 
+
+      // TODO: Fill in the method using at least 4 attributes
+
+      return 0;
     }
   };
 }
-
 
 /*
  * Original Code by Evan Peck

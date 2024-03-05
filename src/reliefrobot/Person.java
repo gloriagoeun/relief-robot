@@ -1,38 +1,43 @@
 package reliefrobot;
+
 import java.util.List;
 import java.util.Random;
 
 public class Person {
     /*
-     * constructor for the entirely random person -> since Java doesn't have concept of
-     * optional parameters for constructor like Python does -> can overload and have multiple constructors
+     * constructor for the entirely random person -> since Java doesn't have concept
+     * of
+     * optional parameters for constructor like Python does -> can overload and have
+     * multiple constructors
      */
 
     // we can change these attributes to fit our scenario
 
     String age; // humans can be a 'baby', 'child', or 'adult'
-    String gender; //'male', 'female', 'non-binary'
+    String gender; // 'male', 'female', 'non-binary'
     String diseaseSeverity; // can have a disease severity: 'mild', 'moderate', 'severe'
-    
+
     // Adult attributes --> if not adult, resort to "" or false
-    String profession; // adults are assigned a profession: 'doctor', 'CEO', 'criminal', 'homeless', 'unemployed', 'unknown'
+    String profession; // adults are assigned a profession: 'doctor', 'CEO', 'criminal', 'homeless',
+                       // 'unemployed', 'unknown'
     String fitnessLevel; // adults are classified as 'average', 'athletic', or 'overweight'
     boolean substanceUse; // can have alcohol or drug use. True if using
     String familyStatus; // can have a family status: 'single', 'married', 'has children'
 
     Random rand;
 
-    // FOR ORDERING OF PERSON
-    static List<String> AGE_ORDER = List.of("elderly", "baby", "child", "adult");
-    static List<String> PROF_ORDER = List.of("criminal","homeless", "unemployed", "unknown", "CEO", "doctor");
-    static List<String> GENDER_ORDER = List.of("non-binary", "male", "female");
-    static List<String> FITNESS_LEVELS_ORDER = List.of("overweight",  "average", "athletic");
-    static List<String> DISEASE_SEVERITY_ORDER = List.of("mild", "moderate", "severe");
-    static List<Boolean> SUBSTANCE_USE_ORDER = List.of(true, false);
-    static List<String> FAMILY_STATUS_ORDER = List.of("single", "married", "has children");
+    // for ordering people based on their attributes, each value is assigned a
+    // distinct index
+    static final List<String> AGE_ORDER = List.of("elderly", "baby", "child", "adult");
+    static final List<String> PROF_ORDER = List.of("criminal", "homeless", "unemployed", "unknown", "CEO", "doctor");
+    static final List<String> GENDER_ORDER = List.of("non-binary", "male", "female");
+    static final List<String> FITNESS_LEVELS_ORDER = List.of("overweight", "average", "athletic");
+    static final List<String> DISEASE_SEVERITY_ORDER = List.of("mild", "moderate", "severe");
+    static final List<Boolean> SUBSTANCE_USE_ORDER = List.of(true, false);
+    static final List<String> FAMILY_STATUS_ORDER = List.of("single", "married", "has children");
 
-    public Person(String age, String profession, 
-    String gender, String fitnessLevel, String diseaseSeverity, boolean substanceUse, String familyStatus) {
+    public Person(String age, String profession,
+            String gender, String fitnessLevel, String diseaseSeverity, boolean substanceUse, String familyStatus) {
         this.age = age;
         this.profession = profession;
         this.gender = gender;
@@ -47,23 +52,25 @@ public class Person {
 
         output += "[" + diseaseSeverity + " disease; " + gender + "; " + age + "]";
         if (age.equals("adult")) {
-            output += "; job: " + profession; 
+            output += "; job: " + profession;
             output += "; fitness level: " + fitnessLevel;
             output += "; substance use: " + substanceUse;
-            output += "; family status: " + familyStatus; 
+            output += "; family status: " + familyStatus;
         }
 
         return output;
     }
 
-    // FOR RANDOM GENERATION OF PERSON
-    static String[] AGE_TYPES = {"baby", "child", "adult", "adult", "adult", "elderly"};
-    static String[] PROF_TYPES = {"doctor", "CEO", "criminal", "homeless", "unemployed", "unknown", "unknown", "unknown"};
-    static String[] GENDER_TYPES = {"male", "female", "non-binary"};
-    static String[] FITNESS_LEVELS = {"overweight", "athletic", "average", "average"};
-    static String[] DISEASE_SEVERITY = {"mild", "moderate", "severe"};
-    static boolean[] SUBSTANCE_USE = {true, false, false, false};
-    static String[] FAMILY_STATUS = {"single", "married", "has children"};
+    // for generating random people, we have different distributions for each
+    // attribute
+    static final String[] AGE_TYPES = { "baby", "child", "adult", "adult", "adult", "elderly" };
+    static final String[] PROF_TYPES = { "doctor", "CEO", "criminal", "homeless", "unemployed", "unknown", "unknown",
+            "unknown" };
+    static final String[] GENDER_TYPES = { "male", "male", "female", "female", "non-binary" };
+    static final String[] FITNESS_LEVELS = { "overweight", "athletic", "average", "average" };
+    static final String[] DISEASE_SEVERITY = { "mild", "moderate", "severe" };
+    static final boolean[] SUBSTANCE_USE = { true, false, false, false };
+    static final String[] FAMILY_STATUS = { "single", "married", "has children" };
 
     /*
      * function to create a totally random person
@@ -71,13 +78,13 @@ public class Person {
     public static Person createRandomPerson(int withSeed) {
         Random rand = new Random(withSeed);
 
-        String ageRand = AGE_TYPES[rand.nextInt(AGE_TYPES.length)];; 
-        String genderRand = GENDER_TYPES[rand.nextInt(GENDER_TYPES.length)];; 
-        String severityRand = DISEASE_SEVERITY[rand.nextInt(DISEASE_SEVERITY.length)]; 
-        
-        String professionRand = ""; 
-        String fitnessRand = ""; 
-        Boolean substanceRand = false; 
+        String ageRand = AGE_TYPES[rand.nextInt(AGE_TYPES.length)];
+        String genderRand = GENDER_TYPES[rand.nextInt(GENDER_TYPES.length)];
+        String severityRand = DISEASE_SEVERITY[rand.nextInt(DISEASE_SEVERITY.length)];
+
+        String professionRand = "";
+        String fitnessRand = "";
+        Boolean substanceRand = false;
         String familyRand = "";
 
         if (ageRand.equals("adult")) {
@@ -87,14 +94,14 @@ public class Person {
             familyRand = FAMILY_STATUS[rand.nextInt(FAMILY_STATUS.length)];
         }
 
-        return new Person(ageRand, professionRand, genderRand, fitnessRand, severityRand, substanceRand, familyRand); 
+        return new Person(ageRand, professionRand, genderRand, fitnessRand, severityRand, substanceRand, familyRand);
     }
 
-    /* 
+    /*
      * get method to convert string to order of string in ordered list above
      */
-    public static <E> int getIntfromAttributes(List<E> ATTRIBUTE_ORDER, E attribute) {
-        return ATTRIBUTE_ORDER.indexOf(attribute) + 1; 
+    public static <E> int getIntfromAttributes(List<E> attributeOrder, E attribute) {
+        return attributeOrder.indexOf(attribute) + 1;
     }
 }
 
