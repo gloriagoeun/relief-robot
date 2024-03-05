@@ -90,39 +90,13 @@ public class Person {
         return new Person(ageRand, professionRand, genderRand, fitnessRand, severityRand, substanceRand, familyRand); 
     }
 
-    // getters to convert string to order of string in ordered list above
-
-    public static int getIntFromAge(String age) {
-        return AGE_ORDER.indexOf(age) + 1;
+    /* 
+     * get method to convert string to order of string in ordered list above
+     */
+    public static <E> int getIntfromAttributes(List<E> ATTRIBUTE_ORDER, E attribute) {
+        return ATTRIBUTE_ORDER.indexOf(attribute) + 1; 
     }
-
-    public static int getIntFromProfession(String profession) {
-        return PROF_ORDER.indexOf(profession) + 1;
-    }
-
-    public static int getIntFromGender(String gender) {
-        return GENDER_ORDER.indexOf(gender) + 1;
-    }
-
-    public static int getIntFromFitnessLevel(String fitnessLevel) {
-        return FITNESS_LEVELS_ORDER.indexOf(fitnessLevel) + 1;
-    }
-
-    public static int getIntFromDiseaseSeverity(String diseaseSeverity) {
-        return DISEASE_SEVERITY_ORDER.indexOf(diseaseSeverity) + 1;
-    }
-
-    public static int getIntFromSubstanceUse(boolean substanceUse) {
-        return SUBSTANCE_USE_ORDER.indexOf(substanceUse) + 1;
-    }
-
-    public static int getIntFromFamilyStatus(String familyStatus) {
-        return FAMILY_STATUS_ORDER.indexOf(familyStatus) + 1;
-    }
-
 }
-
-
 
 /*
  * Original Python Code by Evan Peck 

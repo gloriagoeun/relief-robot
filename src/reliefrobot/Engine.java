@@ -22,29 +22,39 @@ public class Engine {
   public static Comparator<Person> diseaseSevComp = new Comparator<Person>() {
     @Override
     public int compare(Person p1, Person p2) {
-      int p1Disease = Person.getIntFromDiseaseSeverity(p1.diseaseSeverity);
-      int p2Disease = Person.getIntFromDiseaseSeverity(p2.diseaseSeverity);
-      return p2Disease - p1Disease;
+      int p1Disease = Person.getIntfromAttributes(Person.DISEASE_SEVERITY_ORDER, p1.diseaseSeverity);
+      int p2Disease = Person.getIntfromAttributes(Person.DISEASE_SEVERITY_ORDER, p2.diseaseSeverity);
+
+      if (p1Disease < p2Disease) {
+        return -1;
+      } else if (p1Disease > p2Disease) {
+        return 1;
+      } else {
+        return 0;
+      }
     }
   };
 
   public static Comparator<Person> exampleWeightedComp = new Comparator<Person>() {
     @Override
     public int compare(Person p1, Person p2) {
-      int p1Disease = Person.getIntFromDiseaseSeverity(p1.diseaseSeverity);
-      int p2Disease = Person.getIntFromDiseaseSeverity(p2.diseaseSeverity);
-      int p1age = Person.getIntFromAge(p1.age);
-      int p2age = Person.getIntFromAge(p2.age);
+      int p1Score = Person.getIntfromAttributes(Person.DISEASE_SEVERITY_ORDER, p1.diseaseSeverity) * 2 + Person.getIntfromAttributes(Person.AGE_ORDER, p1.age); 
+      int p2Score = Person.getIntfromAttributes(Person.DISEASE_SEVERITY_ORDER, p1.diseaseSeverity) * 2 + Person.getIntfromAttributes(Person.AGE_ORDER, p1.age); 
 
-      return (p2Disease * 2 + p2age) - (p1Disease * 2 + p1age);
+      if (p1Score < p2Score) {
+        return -1;
+      } else if (p1Score > p2Score) {
+        return 1;
+      } else {
+        return 0;
+      }
     }
   };
 
   public static Comparator<Person> newComparator = new Comparator<Person>() {
     @Override
     public int compare(Person p1, Person p2) {
-      //TO BE UPDATED AFTER MAKE ALL PROPERTIES INTO INTs
-
+      // Students create their own "rule"" using multiple attributes
       return 0; 
     }
   };
