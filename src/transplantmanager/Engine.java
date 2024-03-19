@@ -40,9 +40,9 @@ public class Engine {
     @Override
     public int compare(Person p1, Person p2) {
       int p1Score = (Person.DISEASE_SEVERITY_ORDER.indexOf(p1.diseaseSeverity)+1) * 2
-          + Person.DISEASE_SEVERITY_ORDER.indexOf(p1.category)+1;
+          + Person.CATEGORY_ORDER.indexOf(p1.category)+1;
       int p2Score = (Person.DISEASE_SEVERITY_ORDER.indexOf(p2.diseaseSeverity)+1) * 2
-          + Person.DISEASE_SEVERITY_ORDER.indexOf(p2.category)+1;
+          + Person.CATEGORY_ORDER.indexOf(p2.category)+1;
 
       return Integer.compare(p2Score, p1Score);
     }
