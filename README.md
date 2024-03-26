@@ -10,14 +10,14 @@
 * `PriorityQueue` - A priority queue is a special queue data structure where each element is associated with a priority value, and the higher priority elements are served first
 
 ## Description
-You have graduated from Pomona, and you are now working as an engineer for a healthcare company. Your team has been assigned to create an automated transplant manager that will determine who will be prioritized for a liver transplant for a local hospital. The objective for your team is to automate this process and determine who’s lives will be saved based on a certain criteria that you will create. 
+You have graduated from Pomona, and you are now working as an engineer for a healthcare company. Your team has been assigned to create an automated transplant manager that will determine who will be prioritized for a liver transplant for a local hospital. The objective for your team is to automate this process and determine whose lives will be saved based on a certain criteria that you will create. 
 
 As an engineer, your job is to implement the manager and develop a new comparator that prioritizes some individuals over others based on their attributes. With only a limited number of available transplants, your decisions will be a matter of life or death for many of these individuals. Think critically about what attributes you want to consider and how much weight each of these attributes should hold. 
 
-We provide you with the `Person` class and parts of the `TransplantManager`. You will need to implement the `Scenario`, `Engine`, and the rest of `TransplantManager`. Refer to the documentation below for more information on these classes. They are listed in the order you will need to implement for the TransplantManager program.
+We have provided you with the `Person` class and parts of the `TransplantManager`. You will need to implement the `Scenario`, `Engine`, and the rest of the `TransplantManager` class. Refer to the documentation below for more information on these classes. They are listed in the order you will need to implement for the `TransplantManager` program.
 
 ## Before Moving Further
-While not situated in the context of organ transplants, similar questions have been explored through questions like the trolley problem and in the context of autonomous vehicles. 
+While not situated in the context of organ transplants, similar questions have been explored through thought experiments like the trolley problem and in the context of autonomous vehicles. 
 
 Briefly explore the [Moral Machine](http://moralmachine.mit.edu/), where you are tasked with choosing how the autonomous vehicle should move given the situation.
 <p align="center">
@@ -26,23 +26,23 @@ Briefly explore the [Moral Machine](http://moralmachine.mit.edu/), where you are
 
 ### TO DO
 * Visit the [Moral Machine](http://moralmachine.mit.edu/)
-* Click “Start Judging” and, with your partner, and together, decide who you will save in each scenario.
-  * At the end of the sequence of scenarios, the Moral Machine will try to tell you if your group biased your decisions towards any particular scenario or people group.
+* Click “Start Judging” and decide who you will save in each scenario together with your partner.
+  * At the end of the sequence of scenarios, the Moral Machine will try to tell you if your group biased your decisions towards any particular scenario or group of people.
   * It may be helpful for you to read the descriptions for each image. 
 * Record biases that the Moral Machine told you that you/your group has.
 * Were you surprised by the reported biases? Write about your experiences with the Moral Machine in 6-8 sentences.
 
 ## Classes 
 ### `Person` 
-The `Person` class details how to create a `Person` object and what options are available for each attribute. Every Person must have a `category`, `gender`, and `diseaseSeverity`. For a `Person` with a category of “adult”, they are also assigned a `profession`, `fitnessLevel`, `substanceUse`, and `familyStatus`. Since these attributes may not fit for children and elderly, they will not be assigned such values.
+The `Person` class details how to create a `Person` object and what options are available for each attribute. Every `Person` must have a `category`, `gender`, and `diseaseSeverity`. For a `Person` with a category of “adult”, they are also assigned a `profession`, `fitnessLevel`, `substanceUse`, and `familyStatus`. Since these attributes do not really fit for children and elderly, they will not be assigned such values.
 
-The method `createRandomPerson` will allow us to generate random `Person` objects for our `Scenario`.
+The method `createRandomPerson` will allow us to generate random instances of the `Person` object for our `Scenario`.
 
 ### `Scenario` 
-This class you will implement yourself. A Scenario is comprised of a set of people waiting to receive a liver transplant. You will write define the following:
-* constructor for Scenario that takes Person[] people
-* A getter for our private instance variable people, that returns the people of type Person[]
-* A toString method that looks like
+This class you will implement yourself. A `Scenario` is comprised of a set of people waiting to receive a liver transplant. You will write define the following:
+* constructor for `Scenario` that takes `Person[] people`
+* A getter for our private instance variable people, that returns the people of type `Person[]`
+* A `toString` method that formats the string to look like the following: 
 ```
   Transplant candidates waiting to receive a liver transplant: 
   1. [moderate disease; female; child]
@@ -50,25 +50,25 @@ This class you will implement yourself. A Scenario is comprised of a set of peop
   # …
   # Until all people printed
 ```
-A method with signature `public static Scenario createRandomScenario(int numPeople)`. This will create a Scenario containing numPeople randomly generated Person objects.
+* A method with signature `public static Scenario createRandomScenario(int numPeople)`. This will create a `Scenario` containing `numPeople` randomly generated `Person` objects.
 
 ### `Engine`  
 This class you will also implement yourself. The `Engine` is where we will define a way to prioritize people and write our comparators for determining the order in which people will receive transplants. You will write define the following:
-* A static method with signature `public static PriorityQueue<Person> prioritizePeople(Scenario scenario, Comparator<Person> comp)`. In this method, we will return a new PriorityQueue that uses our given Comparator and adds the people from our Scenario.
-* A static method with signature `public static final Comparator<Person> diseaseSeverityComp` that compares each Person based on their disease severity. 
+* A static method with signature `public static PriorityQueue<Person> prioritizePeople(Scenario scenario, Comparator<Person> comp)`. In this method, we will return a new `PriorityQueue` that uses our given `Comparator` and adds the people from our `Scenario`.
+* A static method with signature `public static final Comparator<Person> diseaseSeverityComp` that compares each `Person` based on their disease severity. 
   * To calculate the priority score, should add 1 to the index of the value in the attribute order ArrayLists 
-  * For example: the score of a Person with “moderate” severity is 2
-  * Note: to compare the scores, can use Integer.compare. Since this will be a max priority queue, you must identify the correct order in which to compare the scores
+  * For example: the score of a `Person` with “moderate” severity is 2
+  * Note: to compare the scores, can use `Integer.compare`. Since this will be a max priority queue, you must identify the correct order in which to compare the scores
 * A static method with signature `public static final Comparator<Person> weightedSeverityCategoryComp` that prioritize people based on severity of disease and category but weighs severity 2 times more than category
   * Similarly to the previous method but uses two attributes
-  * For example: the score of a Person with “moderate” severity and “child” would be 2 * 2 + 3 = 7
+  * For example: the score of a `Person` with “moderate” severity and “child” would be 2 * 2 + 3 = 7
 * A static method with signature `public static final Comparator<Person> newComparator` where you write your own comparator for prioritizing the people using ≥ 4 attributes
   * Note: since adults recieve have some attributes that other categories do not, how will you calculate that into your comparator?
 
 ### `TransplantManager`
 This class will be the place where all the pieces come together. You are given most of the code on how the transplant patients will be printed out. 
 
-After the user’s input has been validated for which comparator they want to use, you are in charge of using the Engine and selected comparator to prioritize the people in the scenario. You should print out the top availableTransplants people. When run, the output should look like …
+After the user’s input has been validated for which comparator they want to use, you are in charge of using the `Engine` and selected comparator to prioritize the people in the scenario. You should print out the top `availableTransplants` people. When run, the output should look like the following:
 
 ```
 ===========================================
@@ -121,7 +121,7 @@ Done
 ## Grading 
 You will be graded based on the following criteria:
 
-| Criterion - Total 16 points              | Points |
+| Criterion - Total 15 points              | Points |
 | :--------------------------------------- | :----- |
 | Write up for Moral Machine activity      | 2      |
 | `Scenario` class                         | 2      |
@@ -130,5 +130,9 @@ You will be graded based on the following criteria:
 | Write up for explaining your comparator  | 2      |
 | Appropriate comments                     | 1      |
 | JavaDoc + style                          | 1      |
+
+## Submitting your work
+Double-check that your work is indeed pushed in Github and appears on Gradescope! It is your responsibility to ensure that you do so before the deadline. Don't forget to commit and push your changes as you go. Also make sure to submit your write-up as a pdf for the Moral Machine activity on Gradescope! 
+
 
 
